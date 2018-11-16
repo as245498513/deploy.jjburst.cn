@@ -165,7 +165,7 @@ class ApiProjectsController extends Controller
         $form->text('test_domain','测试域名')->rules('required');
         $form->text('product_domain','正式域名')->rules('required');
 
-        $form->textarea('project_desc', '项目描述');
+        $form->textarea('project_desc', '项目描述')->rules('required');
 
         if($form->model()->id){
             $form->hidden('last_update_admin_id')->default(Admin::user()->id);
@@ -173,6 +173,7 @@ class ApiProjectsController extends Controller
             $form->hidden('add_admin_id')->default(Admin::user()->id);
             $form->hidden('last_update_admin_id')->default(Admin::user()->id);
         }
+
 
         $form->display('created_at', '创建时间');
         $form->display('updated_at', '修改时间');
