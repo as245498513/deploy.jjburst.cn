@@ -162,11 +162,20 @@ class ApiProjectsController extends Controller
 
         $form->select('status','项目状态')->options($statusArr);
 
+        $form->text('test_domain','测试域名')->rules('required');
+        $form->text('product_domain','正式域名')->rules('required');
+
         $form->textarea('project_desc', '项目描述');
+
+        if($form->model()->id){
+            $form->hidden('last_update_admin_id')->default(Admin::user()->id);
+        }else{
+            $form->hidden('add_admin_id')->default(Admin::user()->id);
+            $form->hidden('last_update_admin_id')->default(Admin::user()->id);
+        }
 
         $form->display('created_at', '创建时间');
         $form->display('updated_at', '修改时间');
-
 
         //禁用顶部按钮
         $form->tools(function($tools){
@@ -176,13 +185,9 @@ class ApiProjectsController extends Controller
         //禁用底部按钮
         $form->footer(function($footer){
             $footer->disableViewCheck();
-            //$footer->disableEditingCheck();
+            $footer->disableEditingCheck();
         });
 
-        // 定义事件回调，当模型即将保存时会触发这个回调
-        $form->saving(function (Form $form) {
-            dd($form);
-        });
 
         return $form;
     }
