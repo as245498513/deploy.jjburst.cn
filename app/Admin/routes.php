@@ -10,7 +10,7 @@ Route::group([
     'middleware'    => config('admin.route.middleware'),
 ], function (Router $router) {
 
-    $router->get('/', 'HomeController@index');
+    $router->get('/', 'ApiProjectsController@index');
     $router->resource('/projects','ApiProjectsController');
     /*$router->get('projects', 'ApiProjectsController@index');
     $router->get('projects/create', 'ApiProjectsController@create');*/
